@@ -1,0 +1,21 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev-init": "sudo npm i -g nodemon && npm install",
+    "prod-init": "sudo npm i -g pm2 && npm install",
+    "dev": "nodemon ./bin/app.js",
+    "start": "pm2 start ecosystem.config.js --env production",
+    "restart": "pm2 restart api"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "^4.16.4",
+    "moment": "^2.24.0",
+    "mongoose": "^5.4.17",
+    "morgan": "~1.9.0"
+  }
+}

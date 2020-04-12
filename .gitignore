@@ -1,0 +1,7 @@
+#Editor
+.idea
+#System
+.DS_Store
+#Modules
+node_modules
+package-lock.json
