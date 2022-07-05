@@ -1,20 +1,20 @@
 /**
  * Module dependencies.
  */
-const express = require('express');
+const EXPRESS = require('express');
 /**
  * Controllers
  */
-const Examples = require('./controllers/examples.controller');
+const EXAMPLES = require('./controllers/examples.controller');
 
 //Router
-exports.router = (function () {
-  const Router = express.Router();
+exports.router = (() => {
+  const ROUTER = EXPRESS.Router();
 
-  Router.route('/examples').get(Examples.show);
-  Router.route('/examples/object').get(Examples.object);
-  Router.route('/examples/error').get(Examples.error);
-  Router.route('/examples/validator/:data').get(Examples.validator);
+  ROUTER.get('/examples', EXAMPLES.show);
+  ROUTER.get('/examples/object', EXAMPLES.object);
+  ROUTER.get('/examples/error', EXAMPLES.error);
+  ROUTER.get('/examples/validator/:data', EXAMPLES.validator);
 
-  return Router;
+  return ROUTER;
 })();

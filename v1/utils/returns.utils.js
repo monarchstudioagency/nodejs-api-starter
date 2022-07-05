@@ -1,6 +1,6 @@
 module.exports = {
 
-  error: function (message, context = "INTERNAL") {
+  error: (message, context = "INTERNAL") => {
 
     try {
       return {
@@ -13,7 +13,7 @@ module.exports = {
     }
 
   },
-  success: function (message = null) {
+  success: (message = null) => {
 
     if (typeof message === "string") {
       try {

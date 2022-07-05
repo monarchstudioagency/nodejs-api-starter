@@ -30,7 +30,7 @@ db.mongoConnection()
 
 ## Configuration
 
-Before running your app, edit the `config.json` file in `./core/config` with your app description.
+Before running your app, create a `.env` file and copy data from `.env.example`.
 You can also edit the `ecosystem.config.js` file for production mode.
 
 ## Installation
@@ -59,9 +59,9 @@ Production mode :
 ```bash
 npm run start
 ```
-The app start listening  at http://localhost:3000/v1
+The app start listening  at http://localhost:3009/v1
 
-You can easily change the version of your api & base URL in the `config.json` file.
+You can easily change the version of your api & base URL in the `.env` file.
 
 ## Examples
 

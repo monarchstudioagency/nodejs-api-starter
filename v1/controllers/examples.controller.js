@@ -1,79 +1,72 @@
-/**
- * Utils
- */
-const validator = require('../utils/validators.utils');
-const error = require('../utils/returns.utils').error;
-const success = require('../utils/returns.utils').success;
-
 //Routes
 module.exports = {
-    show: function (req, res) {
+    show: (req, res) => {
 
-        return res.status(200).json(success("API Works"));
+        return res.status(200).json(global.SUCCESS("API Works"));
 
     },
-    object: function (req, res) {
+    object: (req, res) => {
 
         /**
          * To easily return an object
          */
 
-        let data = {
+        const DATA = {
             _id: "unique_id",
             title: "My object",
             description: "My description object"
         };
 
-        return res.status(200).json(success(data));
+        return res.status(200).json(global.SUCCESS(DATA));
 
     },
-    error: function (req, res) {
+    error: (req, res) => {
 
         /**
          * To easily return an error with context
          */
 
-        return res.status(400).json(error('My formatted error', 'EXAMPLE'));
+        return res.status(400).json(global.ERROR('My formatted error', 'EXAMPLE'));
 
     },
-    validator: function (req, res) {
+    validator: (req, res) => {
 
         /**
          * To easily use validators
          * You can add or modify the validator file
          */
 
-        let data = req.params.data;
+        const DATA = req.params.data;
 
         /**
          * Empty options match with ObjectId
          */
-        if(!validator.match(data)){
-            return res.status(400).json(error('No matching ObjectId', 'EXAMPLE'));
+        if(!global.VALIDATOR.match(DATA)){
+            return res.status(400).json(global.ERROR('No matching ObjectId', 'EXAMPLE'));
         }
         /**
          * Match with correct email format
          */
-        if(!validator.match(data, 'email')){
-            return res.status(400).json(error('No matching correct email format', 'EXAMPLE'));
+        if(!global.VALIDATOR.match(DATA, 'email')){
+            return res.status(400).json(global.ERROR('No matching correct email format', 'EXAMPLE'));
         }
         /**
          * Match with secure/strong password
          */
-        if(!validator.match(data, 'password')){
-            return res.status(400).json(error('No matching secure password', 'EXAMPLE'));
+        if(!global.VALIDATOR.match(DATA, 'password')){
+            return res.status(400).json(global.ERROR('No matching secure password', 'EXAMPLE'));
         }
         /**
          * If data is empty
          */
-        if(validator.empty(data)){
-            return res.status(400).json(error('Is an empty value (not null)', 'EXAMPLE'));
+        if(global.VALIDATOR.empty(DATA)){
+            return res.status(400).json(global.ERROR('Is an empty value (not null)', 'EXAMPLE'));
         }
         /**
          * If data is not empty
          */
-        if(!validator.empty(data)){
-            return res.status(400).json(error('Is not an empty value', 'EXAMPLE'));
+        if(!global.VALIDATOR.empty(DATA)){
+            return res.status(400).json(global.ERROR('Is not an empty value', 'EXAMPLE'));
         }
 
     }
