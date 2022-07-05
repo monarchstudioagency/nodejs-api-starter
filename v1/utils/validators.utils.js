@@ -1,5 +1,5 @@
 module.exports = {
-  match: (value, type = "id") => {
+  match: function (value, type = "id") {
 
     if (!value || value === "undefined") return false;
 
@@ -26,7 +26,7 @@ module.exports = {
     }
 
   },
-  empty: (value) => {
+  empty: function (value) {
     if (value) {
       const STRING = value.toString();
       return STRING === "" || !STRING.replace(/\s/g, '').length;

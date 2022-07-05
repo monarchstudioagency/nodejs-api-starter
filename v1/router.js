@@ -8,7 +8,7 @@ const EXPRESS = require('express');
 const EXAMPLES = require('./controllers/examples.controller');
 
 //Router
-exports.router = (() => {
+exports.router = (function () {
   const ROUTER = EXPRESS.Router();
 
   ROUTER.get('/examples', EXAMPLES.show);

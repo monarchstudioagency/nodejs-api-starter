@@ -16,9 +16,14 @@ const DEV_MODE = !process.env.NODE_ENV || process.env.NODE_ENV === "development"
  * Global Methods
  * Declaration of frequently used methods, like return
  */
-global.VALIDATOR = require(`./${VERSION}/utils/validators.utils`)
-global.ERROR = require(`./${VERSION}/utils/returns.utils`).error
-global.SUCCESS = require(`./${VERSION}/utils/returns.utils`).success
+global.VALIDATOR = require(`./${VERSION}/utils/validators.utils`);
+global.ERROR = require(`./${VERSION}/utils/returns.utils`).error;
+global.SUCCESS = require(`./${VERSION}/utils/returns.utils`).success;
+
+/**
+ * Models
+ */
+require(`./${VERSION}/models`);
 
 /**
  * Middlewares
@@ -75,14 +80,14 @@ APP.use(`/${VERSION}/`, ROUTER);
 /**
  * Catch 404
  */
-APP.use((req, res) => {
+APP.use(function (req, res) {
   res.status(404).json(global.ERROR("Route doesn't exist", "APP"));
 });
 
 /**
  * Error handler
  */
-APP.use((err, req, res, next) => {
+APP.use(function (err, req, res, next) {
   if(DEV_MODE){
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};

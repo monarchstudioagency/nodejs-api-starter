@@ -11,7 +11,7 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const PUBLIC_KEY = process.env.PUBLIC_KEY;
 
 module.exports = {
-  auth: (req, res, next) => {
+  auth: function (req, res, next) {
 
     const publicKey = req.headers['x-public-key'];
     const DATE_TIME = req.headers['x-datetime'];

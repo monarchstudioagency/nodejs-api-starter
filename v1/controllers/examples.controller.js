@@ -1,11 +1,25 @@
-//Routes
+// Models
+//const EXAMPLES = global.MODELS.examples;
+
+// Routes
 module.exports = {
-    show: (req, res) => {
+    show: function (req, res) {
+
+        // Mangoose find example
+        /*
+        EXAMPLES.findOne({_id: MY_ID, deleted: false}, function (err, example) {
+           if (err) return res.status(500).json(global.ERROR("An error occurred"));
+
+           if (example) return res.status(200).json(global.SUCCESS(example));
+
+           return res.status(404).json(global.ERROR("No example found matching this ID", "EXAMPLES"));
+        });
+        */
 
         return res.status(200).json(global.SUCCESS("API Works"));
 
     },
-    object: (req, res) => {
+    object: function (req, res) {
 
         /**
          * To easily return an object
@@ -20,7 +34,7 @@ module.exports = {
         return res.status(200).json(global.SUCCESS(DATA));
 
     },
-    error: (req, res) => {
+    error: function (req, res) {
 
         /**
          * To easily return an error with context
@@ -29,7 +43,7 @@ module.exports = {
         return res.status(400).json(global.ERROR('My formatted error', 'EXAMPLE'));
 
     },
-    validator: (req, res) => {
+    validator: function (req, res) {
 
         /**
          * To easily use validators
