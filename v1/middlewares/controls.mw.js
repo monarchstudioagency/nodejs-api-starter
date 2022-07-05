@@ -3,51 +3,49 @@
  */
 const moment = require('moment');
 const crypto = require('crypto');
+
 /**
  * Configuration
  */
-const KEY = require('../config/config').keys;
-/**
- * Utils
- */
-const error = require('../utils/returns.utils').error;
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
+const PUBLIC_KEY = process.env.PUBLIC_KEY;
 
 module.exports = {
   auth: function (req, res, next) {
 
-    let publicKey = req.headers['x-public-key'];
-    let dateTime = req.headers['x-datetime'];
-    let signature = req.headers['x-signature'];
+    const publicKey = req.headers['x-public-key'];
+    const DATE_TIME = req.headers['x-datetime'];
+    const SIGNATURE = req.headers['x-signature'];
 
-    let method = req.method.toUpperCase();
-    let uri = req.originalUrl;
+    const METHOD = req.method.toUpperCase();
+    const URI = req.originalUrl;
 
     /**
      * Verify if all header elements are present
      */
-    if (!publicKey || !dateTime || !signature) return res.status(400).json(error("Missing header parameters", "AUTH"));
+    if (!publicKey || !DATE_TIME || !SIGNATURE) return res.status(400).json(global.ERROR("Missing header parameters", "AUTH"));
     /**
      * Checking public key
      */
-    if (publicKey !== KEY.public) return res.status(401).json(error("Public key unknown", "AUTH"));
+    if (publicKey !== PUBLIC_KEY) return res.status(401).json(global.ERROR("Public key unknown", "AUTH"));
 
     /**
      * Check the time between request and asking
      * > 5mn is failed
      */
-    let timeDiff = moment.utc().diff(Number(dateTime), 'minutes');
-    if (timeDiff > 5) return res.status(409).json(error("Request expired", "AUTH"));
+    const TIME_DIFF = moment.utc().diff(Number(DATE_TIME), 'minutes');
+    if (TIME_DIFF > 5) return res.status(409).json(global.ERROR("Request expired", "AUTH"));
 
     /**
      * Create the signature
      */
-    let serverSign = method + uri + dateTime;
-    let cryptoSign = crypto.createHmac('sha1', KEY.private).update(serverSign, "utf-8").digest('hex');
+    const SERVER_SIGN = METHOD + URI + DATE_TIME;
+    const CRYPTO_SIGN = crypto.createHmac('sha1', PRIVATE_KEY).update(SERVER_SIGN, "utf-8").digest('hex');
 
     /**
      * Compare the signature
      */
-    if (signature.toString() !== cryptoSign.toString()) return res.status(401).json(error("Unauthorized", "AUTH"));
+    if (SIGNATURE.toString() !== CRYPTO_SIGN.toString()) return res.status(401).json(global.ERROR("Unauthorized", "AUTH"));
 
     /**
      * Go to next function is everything is ok

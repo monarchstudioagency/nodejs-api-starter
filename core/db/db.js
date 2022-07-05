@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
-const MongoClient = require("mongodb").MongoClient;
-const DB = global.CURRENT_CONFIG.db;
+const MONGOOSE = require('mongoose');
+const MONGO_CLIENT = require("mongodb").MongoClient;
+const DB = process.env.DB_URL
 
 module.exports = {
     mongooseConnection: function () {
         // API Connection
-        mongoose.connect(DB, {useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true});
-        let db = mongoose.connection;
+        MONGOOSE.connect(DB, {useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true});
+        const db = MONGOOSE.connection;
         //Database global connection
         db.on('error', console.error.bind(console, 'Error during DB connection'));
         db.once('open', function () {
@@ -14,7 +14,7 @@ module.exports = {
         });
     },
     mongoConnection: function () {
-        MongoClient.connect(DB, {useCreateIndex: true, useNewUrlParser: true}, (error, client) => {
+        MONGO_CLIENT.connect(DB, {useCreateIndex: true, useNewUrlParser: true}, (error, client) => {
             if (error) {
                 console.error.bind(console, 'Error during DB connection');
             }
